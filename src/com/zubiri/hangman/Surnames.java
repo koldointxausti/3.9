@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class Surnames {
 	private ArrayList<String> surnames = new ArrayList<String>();
+	//private String randomNumber;
 	
 	public ArrayList getSurnames() {
 		return surnames;
@@ -36,8 +37,9 @@ public class Surnames {
 		}
 		return position;
 	}
-	
 	public String getRandomSurname() {
 		return surnames.get(new Random().nextInt(surnames.size()));
 	}
+	
+	
 }
