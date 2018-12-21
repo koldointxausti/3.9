@@ -1,13 +1,11 @@
 package com.zubiri.hangman;
 
 public class Letter {
-	/*
-	private String letter;
+	private char[] letters = new char[3];
+	private int guessedLetters;
 	
-	public String getLetter() {
-		return letter;
-	}
-	*/
+	
+	
 	public boolean findLetterIn(String surname, char letter) {
 		boolean found = true;
 		for (int i = 0; i < surname.length(); i++) {

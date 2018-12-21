@@ -13,7 +13,7 @@ public class Main {
 				"For this, you will be able to enter 3 letters that may appear in the surname, or not. After this, you will only have a chance to guess the surname and win the game.");
 		boolean playAgain = true;
 		while (playAgain == true) {
-			Surnames surname = new Surnames();
+			Words surname = new Words();
 			// add default surnames
 			surname.addSurname("lazkano");
 			surname.addSurname("intxausti");
