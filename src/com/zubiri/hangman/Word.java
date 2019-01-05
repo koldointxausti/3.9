@@ -2,6 +2,7 @@ package com.zubiri.hangman;
 
 public class Word {
 	private String word;
+	
 
 	public Word(String word) {
 		setWord(word);
@@ -13,7 +14,7 @@ public class Word {
 
 	/**
 	 * @author Koldo
-	 * @param word you want to save (String type)
+	 * @param word you want to save (String)
 	 *             <p>
 	 *             Sets a Word checking that it is <strong>an only word</strong> and
 	 *             <strong>it is not a number</strong>
@@ -23,6 +24,19 @@ public class Word {
 	 *             </p>
 	 */
 	public void setWord(String word) {
+		checkWord(word);
+		if(checkWord(word)) 
+			this.word = word.toLowerCase();	
+	}
+	
+	/**
+	 * @author Koldo
+	 * @param word you want to check (String)
+	 * @return true if the word is <strong>an only word</strong> and
+	 *             <strong>it has not numbers</strong>
+	 */
+	public boolean checkWord(String word) {
+		boolean fine = false;
 		word.trim();
 		String[] numberOfWords = word.split(" ");
 		if (numberOfWords.length == 1) {
@@ -37,12 +51,12 @@ public class Word {
 				}
 			}
 			if (isNumber == false)
-				this.word = word.toLowerCase();
+				fine = true;
 			else
 				System.out.println("You can't enter a number");
 		} else
 			System.out.println("The word has not been set becouse it has to be only a word.");
-
+		return fine;
 	}
 	
 	/**
@@ -61,4 +75,29 @@ public class Word {
 		}
 		return itHas;
 	}
+	
+	
+	/**
+	 * @author Koldo
+	 * @param Letters class object whose situation you want to print by underscores
+	 * <p>Prints the current situation of the word</p>
+	 */
+	public void printUnderscore(Letters letters) {
+		// 
+		for (int i = 0; i < word.length(); i++) {
+			boolean found = false;
+			for (int j = 0; j < letters.length(); j++) {
+				if (letters.getLetter(j) == word.charAt(i)) {
+					found = true;
+				} 
+			}
+			if(found) {
+				System.out.print(word.charAt(i) + "  ");
+			}else {
+				System.out.print("_ ");
+			}
+		}
+	}
+	
+	
 }

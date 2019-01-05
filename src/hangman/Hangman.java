@@ -23,76 +23,23 @@ public class Hangman {
 			words.addWord(new Word("ortiz"));
 			words.addWord(new Word("gonzalez"));
 			// get a random surname among them
-			String word = words.getRandomWord().getWord();
+			Word word = new Word(words.getRandomWord().getWord());
 			System.out.println("Good luck, start with the first letter.");
-			// Create a char array with the length of the maximum quantity of letters the
-			// player can guess
-			char guessed[] = new char[3];
-			int guessedCounter = 0;
-			// print the word with voids
-			for (int i = 0; i < word.length(); i++)
-				System.out.println("_ ");
-			// Open a loop that will go asking to the player for a possible letter in each turn
+			Letters letters = new Letters();
+			// print the word using underscores
+			word.printUnderscore(letters);
+			// Open a loop that will go asking to the player for a possible letter in each
+			// turn
 			int flag = 0;
 			while (flag < 3) {
-				if (!sc.hasNextInt()) { // check that the player doesn't enter a number
-					// ask the user for a letter
-					String possibleLetter = sc.nextLine().toLowerCase().trim();
-					// just in case the user has entered more than one word
-					String[] letterArray = possibleLetter.split(" ");
-					// check that the player enters just a letter
-					if (letterArray.length == 1) {
-						Letter letter = new Letter();
-						for(int i = 0; i<word.length();i++) {
-							if(words.findLetterIn(word , letterArray[0].charAt(0))) {
-								
-							}
-								
-						}
-						
-						// Open a loop that will go checking if the letter the player entered is in the surname
-						for (int index = 0; index < word.length(); index++) {
-							if (word.charAt(index) == letterArray[0].charAt(0)) {
-								/*
-								 * If the character matches, open a loop which will check if the player had
-								 * entered that letter before
-								 */
-								boolean found = false;
-								int index2 = 0;
-								/*
-								 * find for a repeated guess character as times as characters you've saved in
-								 * the array
-								 */
-								while (index2 < guessedCounter && !found) {
-									if (guessed[index2] == letterArray[0].charAt(0)) {
-										found = true;
-									}
-									index2++;
-								}
-								if (!found) {
-									// If he/she had not done so, save the letter in the array 'guessed'
-									guessed[guessedCounter] = letterArray[0].charAt(0);
-									// Increment once the variable 'guessedCounter' for a future possible letter
-									guessedCounter++;
-									// Define the variable 'found' as true so as to get out of the loop
-								}
-
-							}
-						}
-						flag++;// define that the user has use one more time (until 3 times)
-					} else
-						System.out.println("Don't cheat,  please enter just a letter.");
-				} else
-					System.out.println("That's not a letter. Try again.");
+				// ask the user for a letter
+				letters.setPossibleLetter(sc.nextLine());
+				word.hasLetter(letters.getLetter(letters.getLettersCounter()));
+				letters.setLettersCounter(letters.getLettersCounter() + 1);
+				letters.letterIn(letters.getPosibleLetter(), word);
+				flag++;// define that the user has use one more time (until 3 times)
 				// print the current situation of the word
-				for (int i = 0; i < word.length(); i++) {
-					for (int j = 0; j < guessed.length; j++) {
-						if (guessed[j] == word.charAt(i)) {
-							System.out.println(word.charAt(i) + " ");
-						} else
-							System.out.println("_ ");
-					}
-				}
+				word.printUnderscore(letters);
 				// print how many tries do you have left
 				if (flag == 1)
 					System.out.println("You can enter just two letters more");
@@ -102,7 +49,7 @@ public class Hangman {
 			System.out.println("It's time, you gotta try to guess to whole word");
 			boolean wordEntered = false;
 			while (wordEntered == false) {
-				String playerWord = sc.nextLine().toLowerCase().trim();
+				String playerWord= sc.nextLine();
 				// check the user has entered just one word
 				String[] playerWordArray = playerWord.split(" ");
 				if (playerWordArray.length == 1) {
@@ -117,9 +64,9 @@ public class Hangman {
 							}
 						}
 					}
-					if (hasNumber = false) {
+					if (hasNumber == false) {
 						wordEntered = true; // to go out of the loop
-						if (playerWordArray[0].compareTo(word) == 0)
+						if (playerWordArray[0].compareTo(word.getWord()) == 0)
 							System.out.println("Congrats, you won the game");
 						else
 							System.out.println("Sorry, you lost. The surname was " + word);
@@ -130,16 +77,16 @@ public class Hangman {
 			}
 			System.out.println("Would you like to play again? (y/n)");
 			boolean askAgain = true;
-			while(askAgain) {
+			while (askAgain) {
 				String answer = sc.next().toLowerCase();
 				sc.nextLine();
 				switch (answer) {
 				case "y":
-					askAgain=false; //get out of this loop but no out of the biggest loop (playAgain)
+					askAgain = false; // get out of this loop but no out of the biggest loop (playAgain)
 					break;
 				case "n":
-					askAgain=false; //get out of this loop
-					playAgain=false; //get out of the biggest loop (playAgain)
+					askAgain = false; // get out of this loop
+					playAgain = false; // get out of the biggest loop (playAgain)
 					break;
 				default:
 					System.out.println("Please, select a posible answer ('y' for yes/ 'n' for no)");

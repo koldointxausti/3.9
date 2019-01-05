@@ -1,5 +1,4 @@
 package com.zubiri.hangman;
-import java.util.Random;
 import java.util.ArrayList;
 
 public class Words {
@@ -58,6 +57,6 @@ public class Words {
 	 * @return Word class Object randomly taken
 	 */
 	public Word getRandomWord() {
-		return getWord(new Random().nextInt());
+		return getWord((int)(Math.random() * words.size()));
 	}
 }
