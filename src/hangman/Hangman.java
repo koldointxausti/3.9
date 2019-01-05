@@ -1,9 +1,9 @@
-package userInterface;
+package hangman;
 
 import com.zubiri.hangman.*;
 import java.util.Scanner;
 
-public class Main {
+public class Hangman {
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -13,49 +13,46 @@ public class Main {
 				"For this, you will be able to enter 3 letters that may appear in the surname, or not. After this, you will only have a chance to guess the surname and win the game.");
 		boolean playAgain = true;
 		while (playAgain == true) {
-			Words surname = new Words();
+			Words words = new Words();
 			// add default surnames
-			surname.addSurname("lazkano");
-			surname.addSurname("intxausti");
-			surname.addSurname("artola");
-			surname.addSurname("alberdi");
-			surname.addSurname("lekubide");
-			surname.addSurname("ortiz");
-			surname.addSurname("gonzalez");
+			words.addWord(new Word("lazkano"));
+			words.addWord(new Word("intxausti"));
+			words.addWord(new Word("artola"));
+			words.addWord(new Word("alberdi"));
+			words.addWord(new Word("lekubide"));
+			words.addWord(new Word("ortiz"));
+			words.addWord(new Word("gonzalez"));
 			// get a random surname among them
-			String randomSurname = surname.getRandomSurname();
-			// ask the user for the first letter
+			String word = words.getRandomWord().getWord();
 			System.out.println("Good luck, start with the first letter.");
 			// Create a char array with the length of the maximum quantity of letters the
 			// player can guess
 			char guessed[] = new char[3];
 			int guessedCounter = 0;
 			// print the word with voids
-			for (int i = 0; i < randomSurname.length(); i++)
+			for (int i = 0; i < word.length(); i++)
 				System.out.println("_ ");
-			// Open a loop that will go asking to the player for a possible letter in each
-			// turn
+			// Open a loop that will go asking to the player for a possible letter in each turn
 			int flag = 0;
 			while (flag < 3) {
-				// check that the player doesn't enter a number
-				if (!sc.hasNextInt()) {
+				if (!sc.hasNextInt()) { // check that the player doesn't enter a number
+					// ask the user for a letter
 					String possibleLetter = sc.nextLine().toLowerCase().trim();
 					// just in case the user has entered more than one word
 					String[] letterArray = possibleLetter.split(" ");
 					// check that the player enters just a letter
 					if (letterArray.length == 1) {
 						Letter letter = new Letter();
-						for(int i = 0; i<randomSurname.length();i++) {
-							if(letter.findLetterIn(randomSurname , letterArray[0].charAt(0))) {
+						for(int i = 0; i<word.length();i++) {
+							if(words.findLetterIn(word , letterArray[0].charAt(0))) {
 								
 							}
 								
 						}
 						
-						// Open a loop that will go checking if the letter the player entered is in the
-						// surname
-						for (int index = 0; index < randomSurname.length(); index++) {
-							if (randomSurname.charAt(index) == letterArray[0].charAt(0)) {
+						// Open a loop that will go checking if the letter the player entered is in the surname
+						for (int index = 0; index < word.length(); index++) {
+							if (word.charAt(index) == letterArray[0].charAt(0)) {
 								/*
 								 * If the character matches, open a loop which will check if the player had
 								 * entered that letter before
@@ -88,10 +85,10 @@ public class Main {
 				} else
 					System.out.println("That's not a letter. Try again.");
 				// print the current situation of the word
-				for (int i = 0; i < randomSurname.length(); i++) {
+				for (int i = 0; i < word.length(); i++) {
 					for (int j = 0; j < guessed.length; j++) {
-						if (guessed[j] == randomSurname.charAt(i)) {
-							System.out.println(randomSurname.charAt(i) + " ");
+						if (guessed[j] == word.charAt(i)) {
+							System.out.println(word.charAt(i) + " ");
 						} else
 							System.out.println("_ ");
 					}
@@ -122,10 +119,10 @@ public class Main {
 					}
 					if (hasNumber = false) {
 						wordEntered = true; // to go out of the loop
-						if (playerWordArray[0].compareTo(randomSurname) == 0)
+						if (playerWordArray[0].compareTo(word) == 0)
 							System.out.println("Congrats, you won the game");
 						else
-							System.out.println("Sorry, you lost. The surname was " + randomSurname);
+							System.out.println("Sorry, you lost. The surname was " + word);
 					} else
 						System.out.println("Please, enter a real number (no numbers)");
 				} else
