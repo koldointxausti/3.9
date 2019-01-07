@@ -1,6 +1,8 @@
 package hangman;
 
 import com.zubiri.hangman.*;
+
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Hangman {

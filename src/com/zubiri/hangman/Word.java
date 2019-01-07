@@ -1,5 +1,7 @@
 package com.zubiri.hangman;
 
+import java.util.Iterator; 
+
 public class Word {
 	private String word;
 
@@ -93,7 +95,7 @@ public class Word {
 			boolean found = false;
 			for (int j = 0; j < letters.length(); j++) {
 				if (letters.getLetter(j) == word.charAt(i)) {
-					System.out.print(word.charAt(i) + "  ");
+					System.out.print(word.charAt(i) + " ");
 					found=true;
 				}
 			}

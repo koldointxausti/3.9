@@ -45,14 +45,7 @@ public class Words {
 	 * @return index of that word
 	 */
 	public int findWords(Word word) {
-		int position = -1;
-		for (int i = 0; i < words.size(); i++) {
-			if (word.getWord().compareTo(words.get(i).getWord()) == 0) {
-				position = i;
-				break;
-			}
-		}
-		return position;
+		return words.indexOf(word);
 	}
 
 	/**
