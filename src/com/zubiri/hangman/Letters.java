@@ -22,37 +22,27 @@ public class Letters {
 		this.letters = letters;
 	}
 
-	/**
-	 * @author Koldo
-	 * @param index   in the array of the character
-	 * @param letters - the char you want to enter in the letters array
-	 *                <p>
-	 *                Adds a character in the position you give. <br>
-	 *                If you enter more than the length of the array it will print a
-	 *                message.
-	 *                </p>
-	 */
-	public void setLetter(int index, char letters) {
+	public boolean setLetter(char letter) {
+		boolean fine = true;
 		if (lettersCounter < 3) {
-			this.letters[index] = letters;
+			this.letters[lettersCounter] = letter;
+			lettersCounter++;
 		} else {
-			System.out.println("You can't add more than 3 times");
+			fine=false;
 		}
+		return fine;
 	}
 
 	public int getLettersCounter() {
 		return lettersCounter;
 	}
 
-	public void setLettersCounter(int lettersCounter) {
-		this.lettersCounter = lettersCounter;
-	}
-
 	public char getPosibleLetter() {
 		return possibleLetter;
 	}
 
-	public void setPossibleLetter(String possibleLetter) {
+	public boolean setPossibleLetter(String possibleLetter) {
+		boolean fine = false;
 		possibleLetter.trim().toLowerCase();
 		// just in case the user has entered more than one word
 		String[] letterArray = possibleLetter.split(" ");
@@ -62,11 +52,14 @@ public class Letters {
 			if (letterArray[0] == "0" || letterArray[0] == "1" || letterArray[0] == "2" || letterArray[0] == "3"
 					|| letterArray[0] == "4" || letterArray[0] == "5" || letterArray[0] == "6" || letterArray[0] == "7"
 					|| letterArray[0] == "8" || letterArray[0] == "9") {
-				this.possibleLetter = possibleLetter.charAt(0);
-			} else
-				System.out.println("That's not a letter. Try again.");
-		} else
-			System.out.println("Don't cheat,  please enter just a letter.");
+				fine = false;
+			}else {
+				this.possibleLetter = letterArray[0].charAt(0);
+				fine=true;
+				setLetter(this.possibleLetter);
+			}
+		}
+		return fine;
 	}
 
 	/**
@@ -78,8 +71,7 @@ public class Letters {
 	}
 
 	public void letterIn(char letter, Word word) {
-		// Open a loop that will go checking if the letter the player entered is in the
-		// surname
+		// Open a loop that will go checking if the letter the player entered is in the word
 		for (int index = 0; index < word.getWord().length(); index++) {
 			if (word.getWord().charAt(index) == letter) {
 				/*
@@ -88,22 +80,22 @@ public class Letters {
 				 */
 				boolean found = true;
 				int index2 = 0;
+				/*
+				 * find for a repeated guess character as times as characters you've saved in
+				 * the array
+				 */
 				while (index2 < lettersCounter && !found) {
 					if (letters[index2] == letter) {
 						found = true;
 					}
 					index2++;
 				}
-				/*
-				 * find for a repeated guess character as times as characters you've saved in
-				 * the array
-				 */
+				
 				if (!found) {
 					// If he/she had not done so, save the letter in the array 'guessed'
-					letters[lettersCounter] = letter;
-					// Increment once the variable 'guessedCounter' for a future possible letter
-					lettersCounter++;
+					setLetter(letter);
 					// Define the variable 'found' as true so as to get out of the loop
+					found =true;
 				}
 			}
 		}

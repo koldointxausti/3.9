@@ -2,7 +2,6 @@ package com.zubiri.hangman;
 
 public class Word {
 	private String word;
-	
 
 	public Word(String word) {
 		setWord(word);
@@ -23,17 +22,21 @@ public class Word {
 	 *             In case it's not correct a message will be printed on the screen
 	 *             </p>
 	 */
-	public void setWord(String word) {
+	public boolean setWord(String word) {
+		boolean fine = false;
 		checkWord(word);
-		if(checkWord(word)) 
-			this.word = word.toLowerCase();	
+		if (checkWord(word)) {
+			this.word = word.toLowerCase();
+			fine = true;
+		}
+		return fine;
 	}
-	
+
 	/**
 	 * @author Koldo
 	 * @param word you want to check (String)
-	 * @return true if the word is <strong>an only word</strong> and
-	 *             <strong>it has not numbers</strong>
+	 * @return true if the word is <strong>an only word</strong> and <strong>it has
+	 *         not numbers</strong>
 	 */
 	public boolean checkWord(String word) {
 		boolean fine = false;
@@ -58,46 +61,46 @@ public class Word {
 			System.out.println("The word has not been set becouse it has to be only a word.");
 		return fine;
 	}
-	
+
 	/**
 	 * @author Koldo
 	 * @param letter you want to find in the word
-	 * @return true if the word has that letter or <strong>false</strong> if it has not
+	 * @return true if the word has that letter or <strong>false</strong> if it has
+	 *         not
 	 */
 	public boolean hasLetter(char letter) {
 		boolean itHas = false;
 		char[] letters = word.toCharArray();
 		for (int i = 0; i < letters.length; i++) {
-			if(letters[i]==letter) {
+			if (letters[i] == letter) {
 				itHas = true;
 				break;
 			}
 		}
 		return itHas;
 	}
-	
-	
+
 	/**
 	 * @author Koldo
 	 * @param Letters class object whose situation you want to print by underscores
-	 * <p>Prints the current situation of the word</p>
+	 *                <p>
+	 *                Prints the current situation of the word
+	 *                </p>
 	 */
-	public void printUnderscore(Letters letters) {
-		// 
+	public void printUnderscores(Letters letters) {
+		//
 		for (int i = 0; i < word.length(); i++) {
 			boolean found = false;
 			for (int j = 0; j < letters.length(); j++) {
 				if (letters.getLetter(j) == word.charAt(i)) {
-					found = true;
-				} 
+					System.out.print(word.charAt(i) + "  ");
+					found=true;
+				}
 			}
-			if(found) {
-				System.out.print(word.charAt(i) + "  ");
-			}else {
+			if (!found) {
 				System.out.print("_ ");
 			}
 		}
 	}
-	
-	
+
 }

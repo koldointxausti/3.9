@@ -27,19 +27,18 @@ public class Hangman {
 			System.out.println("Good luck, start with the first letter.");
 			Letters letters = new Letters();
 			// print the word using underscores
-			word.printUnderscore(letters);
+			word.printUnderscores(letters);
 			// Open a loop that will go asking to the player for a possible letter in each
 			// turn
 			int flag = 0;
 			while (flag < 3) {
 				// ask the user for a letter
 				letters.setPossibleLetter(sc.nextLine());
-				word.hasLetter(letters.getLetter(letters.getLettersCounter()));
-				letters.setLettersCounter(letters.getLettersCounter() + 1);
-				letters.letterIn(letters.getPosibleLetter(), word);
+				//word.hasLetter(letters.getLetter(letters.getLettersCounter()-1));
+				//letters.letterIn(letters.getPosibleLetter(), word);
 				flag++;// define that the user has use one more time (until 3 times)
 				// print the current situation of the word
-				word.printUnderscore(letters);
+				word.printUnderscores(letters);
 				// print how many tries do you have left
 				if (flag == 1)
 					System.out.println("You can enter just two letters more");
@@ -49,7 +48,7 @@ public class Hangman {
 			System.out.println("It's time, you gotta try to guess to whole word");
 			boolean wordEntered = false;
 			while (wordEntered == false) {
-				String playerWord= sc.nextLine();
+				String playerWord = sc.nextLine();
 				// check the user has entered just one word
 				String[] playerWordArray = playerWord.split(" ");
 				if (playerWordArray.length == 1) {
@@ -69,7 +68,7 @@ public class Hangman {
 						if (playerWordArray[0].compareTo(word.getWord()) == 0)
 							System.out.println("Congrats, you won the game");
 						else
-							System.out.println("Sorry, you lost. The surname was " + word);
+							System.out.println("Sorry, you lost. The surname was " + word.getWord());
 					} else
 						System.out.println("Please, enter a real number (no numbers)");
 				} else

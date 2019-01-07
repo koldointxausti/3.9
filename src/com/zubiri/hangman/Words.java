@@ -1,15 +1,18 @@
 package com.zubiri.hangman;
+
 import java.util.ArrayList;
 
 public class Words {
 	private ArrayList<Word> words = new ArrayList<Word>();
-	
+
 	public ArrayList getWords() {
 		return words;
 	}
+
 	public void setWords(ArrayList words) {
-		this.words=words;
+		this.words = words;
 	}
+
 	/**
 	 * @author Koldo
 	 * @param index of the word in the ArrayList
@@ -18,7 +21,7 @@ public class Words {
 	public Word getWord(int index) {
 		return words.get(index);
 	}
-	
+
 	/**
 	 * @author Koldo
 	 * @param Word class object to add to the ArrayList
@@ -26,16 +29,16 @@ public class Words {
 	public void addWord(Word word) {
 		words.add(word);
 	}
-	
+
 	/**
 	 * @author Koldo
 	 * @param index of the Word you want to modify
-	 * @param Word class object you want to enter in that index
+	 * @param Word  class object you want to enter in that index
 	 */
 	public void modifyWord(int index, Word word) {
 		words.add(index, word);
 	}
-	
+
 	/**
 	 * @author Koldo
 	 * @param Word class object you want to find
@@ -43,20 +46,20 @@ public class Words {
 	 */
 	public int findWords(Word word) {
 		int position = -1;
-		for(int i=0; i<words.size();i++) {
-			if(word.getWord().compareTo(words.get(i).getWord())==0) {
+		for (int i = 0; i < words.size(); i++) {
+			if (word.getWord().compareTo(words.get(i).getWord()) == 0) {
 				position = i;
 				break;
 			}
 		}
 		return position;
 	}
-	
+
 	/**
 	 * @author Koldo
 	 * @return Word class Object randomly taken
 	 */
 	public Word getRandomWord() {
-		return getWord((int)(Math.random() * words.size()));
+		return getWord((int) (Math.random() * words.size()));
 	}
 }
